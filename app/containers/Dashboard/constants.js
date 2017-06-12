@@ -1,0 +1,2 @@
+export const FETCH_SIDE_MENUS = 'FETCH_SIDE_MENUS';
+export const CHANGE_SIDE_MENUS = 'CHANGE_SIDE_MENUS';

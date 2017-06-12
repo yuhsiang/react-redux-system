@@ -82,14 +82,14 @@ export default function createRoutes(store) {
 
           getComponent(nextState, cb) {
             const importModules = Promise.all([
-              // import('containers/StatsHierarchy/reducer'),
+              import('containers/StatsHierarchy/reducer'),
               import('containers/StatsHierarchy'),
             ]);
 
             const renderRoute = loadModule(cb);
 
-            importModules.then(([component]) => {
-              // injectReducer('dashboard', reducer.default);
+            importModules.then(([reducer, component]) => {
+              injectReducer('StatsHierarchy', reducer.default);
               renderRoute(component);
             });
 

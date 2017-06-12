@@ -7,8 +7,6 @@ const initialState = {
   isLoading: false,
 };
 
-
-
 export default function dashboardReducer (state = initialState, action){
   switch (action.type){
     case FETCH_SIDE_MENUS:

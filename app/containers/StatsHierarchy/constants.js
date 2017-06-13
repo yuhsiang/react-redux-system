@@ -1,0 +1,1 @@
+export const CHANGE_GROUP_OPEN = 'CHANGE_GROUP_OPEN';

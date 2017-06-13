@@ -28,15 +28,16 @@ export function login(form) {
           dispatch(sendingRequest(false));
           // error msg
         }
+
+        dispatch(sendingRequest(false));
+        dispatch(changeForm({username: "", password: ""}));
+
         if (res.data.token) {
           auth.setAuthToken(res.data.token);
           forwardTo('/');
-          return;
         } else {
           // error msg
         }
-        dispatch(sendingRequest(false));
-        dispatch(changeForm({username: "", password: ""}));
       });
     });
   }

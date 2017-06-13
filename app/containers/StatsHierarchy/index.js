@@ -3,14 +3,16 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import { selectGroupItem } from './selector';
+import GroupView from './GroupView';
+import DragableGroupView from './DragableGroupView';
 
 class StatsHierarchy extends Component {
   render() {
-    // render this...
-    console.log(this.props.groupItems);
     return (
       <div>
-
+        <GroupView>
+          <DragableGroupView />
+        </GroupView>
       </div>
     )
   }

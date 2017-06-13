@@ -20,6 +20,9 @@ export default function createRoutes(store) {
     {
       path: '/',
       name: 'dashboard',
+      onEnter: () => {
+        console.log('dashboard onenter');
+      },
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/Dashboard/reducer'),
@@ -32,7 +35,6 @@ export default function createRoutes(store) {
           injectReducer('dashboard', reducer.default);
           renderRoute(component);
         });
-
         importModules.catch(errorLoading);
       },
       childRoutes: [

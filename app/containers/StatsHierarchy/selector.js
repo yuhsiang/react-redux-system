@@ -7,6 +7,6 @@ const selectGlobal = (state) => {
 export const selectGroupItem = () => createSelector(
   selectGlobal,
   (globalState) => {
-    return globalState;
+    return globalState.groupItem;
   }
 )

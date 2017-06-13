@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 
 import { fetchSideMenu } from './actions';
 import { selectSideMenu } from './selector';
@@ -31,9 +32,15 @@ class Dashboard extends Component {
       <div>
         <SideMenu>
           {this.renderMenuItems()}
+          <MenuItem onClick={() => {
+            localStorage.clear();
+            browserHistory.replace('/login');
+          }}>
+            登出
+          </MenuItem>
         </SideMenu>
         <Wrapper>
-        {React.Children.toArray(this.props.children)}
+          {React.Children.toArray(this.props.children)}
         </Wrapper>
       </div>
     )

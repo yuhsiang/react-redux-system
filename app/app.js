@@ -59,6 +59,12 @@ const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: makeSelectLocationState(),
 });
 
+const authMiddleware = store => next => action => {
+  let isLoggedIn = auth.isLoggedIn();
+  browserHistory.replace('/login');
+  next(action);
+}
+
 function checkAuth(nextState, replaceState) {
   let isLoggedIn = auth.isLoggedIn();
   console.log(nextState, isLoggedIn);

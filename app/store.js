@@ -4,20 +4,38 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
+import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 import thunk from 'redux-thunk';
+import auth from './utils/auth';
+
 
 const sagaMiddleware = createSagaMiddleware();
+
+
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
+
+  const authMiddleware = store => next => action => {
+    if (action.type === LOCATION_CHANGE && action.payload.pathname !== '/login') {
+      let isLoggedIn = auth.isLoggedIn();
+      if (!isLoggedIn) {
+        history.replace('/login');
+        return;
+      }
+    }
+    next(action);
+  }
+
   const middlewares = [
     thunk,
     sagaMiddleware,
+    authMiddleware,
     routerMiddleware(history),
   ];
 

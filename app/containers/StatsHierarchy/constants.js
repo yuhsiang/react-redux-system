@@ -1,1 +1,2 @@
 export const CHANGE_GROUP_OPEN = 'CHANGE_GROUP_OPEN';
+export const MOVE_GROUP = 'MOVE_GROUP';

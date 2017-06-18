@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import { selectGroupItem } from '../selector';
 import GroupOpener from './GroupOpener';
 import { switchGroupOpen } from '../actions';
 
+import DragableItem from './DragableItem';
+import DragableGroup from './DragableGroup';
+
+
 const SIZE_PADDINGLEFT = 15;
 
 class DragableGroupView extends Component {
-
-
   renderGroup(groupItems) {
-    console.log(groupItems);
     const { items } = groupItems,
           len = items.length;
 
@@ -32,7 +35,7 @@ class DragableGroupView extends Component {
 
         res.push(
           <div style={{paddingLeft:SIZE_PADDINGLEFT}} key={`item-${items[i].id}`}>
-            <span>➙</span><span>{items[i].name}</span>
+            <span>➙</span><DragableItem item={item} name={items[i].name}></DragableItem>
           </div>
         );
       }
@@ -43,10 +46,10 @@ class DragableGroupView extends Component {
     }
 
     return (
-      <div>
+      <DragableGroup groupItems={groupItems}>
         <div><GroupOpener onClick={() => {this.props.dispatch(switchGroupOpen(groupItems))}}>{indicatorIcon}</GroupOpener><span>{groupItems.name}</span></div>
         {res}
-      </div>
+      </DragableGroup>
     );
   }
   render() {
@@ -64,4 +67,4 @@ const mapStateToProps = createStructuredSelector({
   groupItems: selectGroupItem(),
 });
 
-export default connect(mapStateToProps)(DragableGroupView);
+export default connect(mapStateToProps)(DragDropContext(HTML5Backend)(DragableGroupView));
